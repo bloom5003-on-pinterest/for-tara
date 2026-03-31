@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Tara ★ 18</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
         :root {
             --green: #556b2f; /* Dark olive / Twee aesthetic */
@@ -224,7 +226,6 @@
     <footer>MADE WITH LOVE FOR TARA — EST. 2026</footer>
 
     <script>
-        // Regular reveal function
         function reveal(card) {
             const h3 = card.querySelector('h3');
             const content = card.querySelector('.content');
@@ -238,28 +239,32 @@
             }
         }
 
-        // Special Birthday reveal with Confetti
         function revealBirthday(card) {
-            reveal(card); // Open the card normally
+            const content = card.querySelector('.content');
+            const isOpening = content.style.display !== 'block';
             
-            // Trigger confetti
-            var count = 200;
-            var defaults = {
-              origin: { y: 0.7 },
-              colors: ['#556b2f', '#f4c2c2', '#fdf5e6', '#708238']
-            };
+            reveal(card); 
+            
+            // Only fire confetti when opening, not when closing
+            if (isOpening && typeof confetti === 'function') {
+                var count = 200;
+                var defaults = {
+                    origin: { y: 0.7 },
+                    colors: ['#556b2f', '#f4c2c2', '#fdf5e6', '#708238']
+                };
 
-            function fire(particleRatio, opts) {
-              confetti(Object.assign({}, defaults, opts, {
-                particleCount: Math.floor(count * particleRatio)
-              }));
+                function fire(particleRatio, opts) {
+                    confetti(Object.assign({}, defaults, opts, {
+                        particleCount: Math.floor(count * particleRatio)
+                    }));
+                }
+
+                fire(0.25, { spread: 26, startVelocity: 55 });
+                fire(0.2, { spread: 60 });
+                fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+                fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+                fire(0.1, { spread: 120, startVelocity: 45 });
             }
-
-            fire(0.25, { spread: 26, startVelocity: 55 });
-            fire(0.2, { spread: 60 });
-            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-            fire(0.1, { spread: 120, startVelocity: 45 });
         }
     </script>
 </body>
