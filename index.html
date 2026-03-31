@@ -135,7 +135,7 @@
             <h3>...math feels like total chaos</h3>
             <div class="content">
                 <p>Calculus might be hard, but remember: you are living in a world with beautiful creatures and places. Take a moment to relax before trying again, you got this!!!</p>
-                <a href="https://www.youtube.com/results?search_query=aesthetic+math+in+nature" target="_blank">Rest your mind</a>
+                <a href="https://www.youtube.com/watch?v=Tm7L7zvdDz4" target="_blank">Rest your mind</a>
             </div>
         </div>
 
@@ -144,7 +144,7 @@
             <h3>...it's way too loud</h3>
             <div class="content">
                 <p>Put on your headphones and disappear for a moment, doesn't matter if the noise is from inside or outside.</p>
-                <a href="https://open.spotify.com/artist/56Y9U67Y28689vI87G69Uv" target="_blank">Listen to Adrienne</a>
+                <a href="https://open.spotify.com/artist/4aKWmkWAKviFlyvHYPTNQY" target="_blank">Listen to Adrienne</a>
             </div>
         </div>
 
@@ -180,7 +180,7 @@
             <h3>...you need KATSEYE energy</h3>
             <div class="content">
                 <p>Time to channel that inner power and confidence.</p>
-                <a href="https://open.spotify.com/artist/6S2AInw2YJ5GfP6f0v4iTo" target="_blank">Stream on Spotify</a>
+                <a href="https://open.spotify.com/artist/3c0gDdb9lhnHGFtP4prQpn" target="_blank">Go! ★</a>
             </div>
         </div>
 
@@ -211,11 +211,11 @@
             </div>
         </div>
 
-        <div class="card" onclick="reveal(this)">
+        <div class="card" onclick="revealBirthday(this)">
             <span class="star-icon">★</span>
             <h3>...it's finally your 18th</h3>
             <div class="content">
-                <p>The stars aligned for you 18 years ago. You are officially an adult, but you never have to lose your magic. Sretan rođendan!</p>
+                <p>Let your days be filled with happiness, purpose, health and a bit of whimsy! I hope this is going to be your best year yet 💚</p>
                 <p style="font-size: 0.8rem; color: var(--green);">Happy Birthday, Tara.</p>
             </div>
         </div>
@@ -224,6 +224,7 @@
     <footer>MADE WITH LOVE FOR TARA — EST. 2026</footer>
 
     <script>
+        // Regular reveal function
         function reveal(card) {
             const h3 = card.querySelector('h3');
             const content = card.querySelector('.content');
@@ -235,6 +236,30 @@
                 content.style.display = 'block';
                 h3.style.display = 'none';
             }
+        }
+
+        // Special Birthday reveal with Confetti
+        function revealBirthday(card) {
+            reveal(card); // Open the card normally
+            
+            // Trigger confetti
+            var count = 200;
+            var defaults = {
+              origin: { y: 0.7 },
+              colors: ['#556b2f', '#f4c2c2', '#fdf5e6', '#708238']
+            };
+
+            function fire(particleRatio, opts) {
+              confetti(Object.assign({}, defaults, opts, {
+                particleCount: Math.floor(count * particleRatio)
+              }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
         }
     </script>
 </body>
