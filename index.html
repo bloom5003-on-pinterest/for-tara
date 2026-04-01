@@ -8,8 +8,8 @@
     
     <style>
         :root {
-            --green: #556b2f; /* Dark olive / Twee aesthetic */
-            --soft-pink: #f4c2c2; /* Hair color accent */
+            --green: #556b2f; 
+            --soft-pink: #f4c2c2; 
             --cream: #fdf5e6;
             --text: #2f4f4f;
             --accent-green: #708238;
@@ -24,25 +24,9 @@
             line-height: 1.6;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: var(--green);
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            font-style: italic;
-            opacity: 0.8;
-            border-bottom: 1px solid var(--soft-pink);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
+        header { text-align: center; margin-bottom: 50px; }
+        h1 { font-size: 2.5rem; color: var(--green); margin-bottom: 10px; letter-spacing: -1px; }
+        .subtitle { font-style: italic; opacity: 0.8; border-bottom: 1px solid var(--soft-pink); display: inline-block; padding-bottom: 5px; }
 
         .grid {
             display: grid;
@@ -64,29 +48,27 @@
             justify-content: center;
             min-height: 220px;
             box-shadow: 4px 4px 0px var(--soft-pink);
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 8px 8px 0px var(--accent-green);
+        /* Specialized padding for the birthday card to make the image pop */
+        .birthday-card-reveal {
+            padding: 0px !important;
         }
 
-        .card h3 {
-            font-size: 1.1rem;
-            margin: 0;
-            color: var(--green);
+        .card:hover { transform: translateY(-5px); box-shadow: 8px 8px 0px var(--accent-green); }
+        .card h3 { font-size: 1.1rem; margin: 0; color: var(--green); }
+
+        .content { display: none; animation: fadeIn 0.6s forwards; }
+        
+        .birthday-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
         }
 
-        .content {
-            display: none; /* Hidden until clicked */
-            animation: fadeIn 0.6s forwards;
-        }
-
-        .content p {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
+        .content p { font-size: 0.95rem; margin: 20px 35px; }
         .content a {
             display: inline-block;
             color: white;
@@ -95,33 +77,16 @@
             text-decoration: none;
             font-size: 0.8rem;
             text-transform: uppercase;
+            margin: 0 35px 35px 35px;
             letter-spacing: 1px;
         }
 
-        .star-icon {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: var(--soft-pink);
-            font-size: 1.2rem;
-        }
+        .star-icon { position: absolute; top: 10px; right: 15px; color: var(--soft-pink); font-size: 1.2rem; z-index: 10; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { text-align: center; margin-top: 80px; font-size: 0.7rem; opacity: 0.6; letter-spacing: 2px; }
 
-        footer {
-            text-align: center;
-            margin-top: 80px;
-            font-size: 0.7rem;
-            opacity: 0.6;
-            letter-spacing: 2px;
-        }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -134,10 +99,9 @@
     <div class="grid">
         <div class="card" onclick="revealBirthday(this)">
             <span class="star-icon">★</span>
-            <h3>...it's your BIRTHDAY! ★</h3>
+            <h3 style="text-align: center; width: 100%;">...it's your BIRTHDAY! ★</h3>
             <div class="content">
-                <p>Let your days be filled with happiness, purpose, health and a bit of whimsy! I hope this is going to be your best year yet 💚</p>
-                <p style="font-size: 0.8rem; color: var(--green);">Happy Birthday, Tara.</p>
+                <img src="postcard.png" class="birthday-img" alt="Birthday Postcard">
             </div>
         </div>
         
@@ -224,9 +188,13 @@
             if (content.style.display === 'block') {
                 content.style.display = 'none';
                 h3.style.display = 'block';
+                card.classList.remove('birthday-card-reveal');
             } else {
                 content.style.display = 'block';
                 h3.style.display = 'none';
+                if(card.getAttribute('onclick').includes('revealBirthday')) {
+                    card.classList.add('birthday-card-reveal');
+                }
             }
         }
 
@@ -236,7 +204,6 @@
             
             reveal(card); 
             
-            // Only fire confetti when opening, not when closing
             if (isOpening && typeof confetti === 'function') {
                 var count = 200;
                 var defaults = {
